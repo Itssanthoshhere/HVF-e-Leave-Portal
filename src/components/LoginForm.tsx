@@ -26,24 +26,24 @@ const LoginForm = ({ onLogin, onSignUp, isLoading }: LoginFormProps) => {
     e.preventDefault();
     setError('');
     setSuccessMessage('');
-    
+
     if (isSignUp) {
       // Sign up validation
       if (!pno || !password || !email || !name || !confirmPassword) {
         setError('Please fill in all fields');
         return;
       }
-      
+
       if (password !== confirmPassword) {
         setError('Passwords do not match');
         return;
       }
-      
+
       if (password.length < 6) {
         setError('Password must be at least 6 characters long');
         return;
       }
-      
+
       try {
         const message = await onSignUp(pno, password, email, name);
         setSuccessMessage(message);
@@ -61,14 +61,14 @@ const LoginForm = ({ onLogin, onSignUp, isLoading }: LoginFormProps) => {
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Sign up failed');
       }
-      
+
     } else {
       // Sign in validation
       if (!pno || !password) {
         setError('Please fill in all fields');
         return;
       }
-      
+
       try {
         await onLogin(pno, password);
       } catch (err) {
@@ -98,9 +98,9 @@ const LoginForm = ({ onLogin, onSignUp, isLoading }: LoginFormProps) => {
         <div className="text-center mb-8">
           <div className="flex justify-center mb-4">
             <div className="bg-white p-4 rounded-full shadow-lg">
-              <img 
-                src="/images/hvfr.png" 
-                alt="Heavy Vehicles Factory Logo" 
+              <img
+                src="public/images/hvfr.png"
+                alt="Heavy Vehicles Factory Logo"
                 className="h-16 w-16 object-contain"
               />
             </div>
@@ -119,8 +119,8 @@ const LoginForm = ({ onLogin, onSignUp, isLoading }: LoginFormProps) => {
               {isSignUp ? 'Sign Up' : 'Sign In'}
             </CardTitle>
             <CardDescription className="text-center">
-              {isSignUp 
-                ? 'Create your account to access the portal' 
+              {isSignUp
+                ? 'Create your account to access the portal'
                 : 'Enter your personal number and password'
               }
             </CardDescription>
@@ -178,7 +178,7 @@ const LoginForm = ({ onLogin, onSignUp, isLoading }: LoginFormProps) => {
                   />
                 </div>
               </div>
-              
+
               <div className="space-y-2">
                 <Label htmlFor="password">Password</Label>
                 <div className="relative">
@@ -226,13 +226,13 @@ const LoginForm = ({ onLogin, onSignUp, isLoading }: LoginFormProps) => {
                 </Alert>
               )}
 
-              <Button 
-                type="submit" 
+              <Button
+                type="submit"
                 className="w-full bg-blue-600 hover:bg-blue-700"
                 disabled={isLoading}
               >
-                {isLoading 
-                  ? (isSignUp ? 'Creating Account...' : 'Signing In...') 
+                {isLoading
+                  ? (isSignUp ? 'Creating Account...' : 'Signing In...')
                   : (isSignUp ? 'Sign Up' : 'Sign In')
                 }
               </Button>
@@ -245,8 +245,8 @@ const LoginForm = ({ onLogin, onSignUp, isLoading }: LoginFormProps) => {
                 className="text-sm text-blue-600 hover:text-blue-700 underline"
                 disabled={isLoading}
               >
-                {isSignUp 
-                  ? 'Already have an account? Sign In' 
+                {isSignUp
+                  ? 'Already have an account? Sign In'
                   : "Don't have an account? Sign Up"
                 }
               </button>

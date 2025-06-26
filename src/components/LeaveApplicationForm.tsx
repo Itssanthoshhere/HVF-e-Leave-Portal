@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -117,6 +116,14 @@ const LeaveApplicationForm = ({ onSubmit, leaveBalance, existingLeaves }: LeaveA
     return 0;
   };
 
+  const isFromDateSunday = () => {
+    if (formData.fromDate) {
+      const fromDate = new Date(formData.fromDate);
+      return fromDate.getDay() === 0; // Sunday is 0
+    }
+    return false;
+  };
+
   const selectedLeaveType = leaveTypes.find(type => type.code === formData.leaveType);
   const availableBalance = formData.leaveType ? leaveBalance[formData.leaveType] || 0 : 0;
 
@@ -126,6 +133,15 @@ const LeaveApplicationForm = ({ onSubmit, leaveBalance, existingLeaves }: LeaveA
         <Alert variant="destructive">
           <AlertTriangle className="h-4 w-4" />
           <AlertDescription>{errors.general}</AlertDescription>
+        </Alert>
+      )}
+
+      {isFromDateSunday() && (
+        <Alert variant="destructive">
+          <AlertTriangle className="h-4 w-4" />
+          <AlertDescription>
+            Warning: Your leave is starting on a Sunday. Please ensure this is intentional as Sunday is typically a non-working day.
+          </AlertDescription>
         </Alert>
       )}
 
